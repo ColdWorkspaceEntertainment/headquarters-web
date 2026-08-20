@@ -3,236 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cold Works Production — Digital Headquarters</title>
-    <!-- Font Awesome Icons -->
+    <title>Cold Works Production — Maintenance Mode</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="https://imgur.com/HpfJeZJ.png">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #0b0f19;
+            color: #cbd5e1;
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px;
+        }
+        .maintenance-container {
+            text-align: center;
+            max-width: 500px;
+            margin: auto;
+        }
+        .brand-code {
+            font-family: 'Fira Code', monospace;
+            font-size: 13px;
+            letter-spacing: 3px;
+            color: #38bdf8;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        h1 {
+            font-size: 26px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+        p {
+            font-size: 14px;
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(56, 189, 248, 0.05);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            color: #38bdf8;
+        }
+        .pulse-dot {
+            width: 7px;
+            height: 7px;
+            background-color: #38bdf8;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #38bdf8;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        footer {
+            font-size: 12px;
+            color: #64748b;
+            font-family: 'Fira Code', monospace;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- TOP NAVIGATION BAR -->
-    <header class="hq-navbar">
-        <div class="nav-container">
-            <div class="brand-logo">
-                <div class="logo-circle">CW</div>
-                <div class="logo-text">
-                    <span class="main-title">COLD WORKS</span>
-                    <span class="sub-title">HEADQUARTERS</span>
-                </div>
-            </div>
-            <div class="system-status">
-                <span class="status-indicator"></span>
-                <span class="status-text">HQ SYSTEMS OPERATIONAL</span>
-            </div>
-        </div>
-    </header>
-
-    <main class="main-content">
-        
-        <!-- HERO / CORPORATE DIRECTORY -->
-        <section class="hq-hero">
-            <div class="hero-badge"><i class="fas fa-building"></i> CENTRAL DIRECTORY</div>
-            <h1>Digital Production Headquarters</h1>
-            <p class="hero-motto">"Work, Develop, Present"</p>
-            <p class="hero-description">
-                Official management and operation hub for Cold Works Production. Overseeing music production, digital visual arts, interactive developments, and intellectual brand assets.
-            </p>
-        </section>
-
-        <!-- GRID CONTAINER FOR HQ DIVISIONS -->
-        <div class="hq-grid">
-
-            <!-- 1. CORPORATE & OPERATIONS INFO -->
-            <section class="hq-card hq-info-card">
-                <div class="card-header">
-                    <h3><i class="fas fa-network-wired"></i> Operations & Divisions</h3>
-                </div>
-                <div class="card-body">
-                    <div class="division-item">
-                        <i class="fas fa-music"></i>
-                        <div>
-                            <h4>Audio & Beat Lab</h4>
-                            <p>130 BPM Beat Arrangements, Instrumental Music & Synthesizer V Vocals.</p>
-                        </div>
-                    </div>
-                    <div class="division-item">
-                        <i class="fas fa-paint-brush"></i>
-                        <div>
-                            <h4>Visual Art & Character Design</h4>
-                            <p>Original Manga, Webtoon Illustrations & Concept Designs.</p>
-                        </div>
-                    </div>
-                    <div class="division-item">
-                        <i class="fas fa-code"></i>
-                        <div>
-                            <h4>Interactive & Dev Unit</h4>
-                            <p>Web Games, OS Simulations & Custom Web Experiences.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-box">
-                        <span class="contact-label">OFFICIAL OUTBOUND COMMUNICATION</span>
-                        <a href="mailto:info@coldworksproduction.com" class="contact-email">
-                            <i class="fas fa-envelope"></i> info@coldworksproduction.com
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 2. VIOLET ABBY MUSE - CITIZEN / BIO ID CARD -->
-            <section class="hq-card bio-id-section">
-                <div class="card-header">
-                    <h3><i class="fas fa-id-card"></i> Subject Identification</h3>
-                    <span class="clearance-tag">LEVEL 3 CLEARANCE</span>
-                </div>
-                <div class="card-body">
-                    <div class="bio-card-wrapper">
-                        <div class="bio-card-header">
-                            <span class="company-tag">COLD WORKS PRODUCTION</span>
-                            <span class="card-type">BIOLOGICAL LIFE FORM ID</span>
-                        </div>
-                        <div class="bio-card-body">
-                            <div class="bio-avatar">
-                                <img src="https://imgur.com/njPSPeX.png" alt="Violet Abby Muse">
-                                <span class="subject-tag">SUBJECT #V-0822</span>
-                            </div>
-                            <div class="bio-details">
-                                <div class="bio-field">
-                                    <label>FULL NAME</label>
-                                    <span>Violet Abby Muse</span>
-                                </div>
-                                <div class="bio-field">
-                                    <label>SPECIES / FORM</label>
-                                    <span>Biological Life Form</span>
-                                </div>
-                                <div class="bio-field">
-                                    <label>DESIGNATED AGE</label>
-                                    <span>17</span>
-                                </div>
-                                <div class="bio-field">
-                                    <label>CIVILIAN COVER</label>
-                                    <span>Café Waiter</span>
-                                </div>
-                                <div class="bio-field">
-                                    <label>ORIGIN MATRIX</label>
-                                    <span>Turkey & Japan</span>
-                                </div>
-                                <div class="bio-field">
-                                    <label>CREATOR ENTITY</label>
-                                    <span>CewSoft Corp. (Lore)</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bio-card-footer">
-                            <i class="fas fa-microchip"></i>
-                            <span>EXPERIMENTAL LABORATORY SUBJECT — NON-HUMAN</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-        </div>
-
-        <!-- 3. OFFICIAL TRADEMARK REGISTRATION SECTION -->
-        <section class="hq-card trademark-card">
-            <div class="card-header">
-                <div>
-                    <h3><i class="fas fa-shield-alt"></i> Official Brand Registration</h3>
-                    <p class="sub-text">Intellectual Property & Legal Status under TÜRKPATENT</p>
-                </div>
-                <div class="status-badge status-pending">
-                    <span class="pulse-dot"></span>
-                    <span>UNDER EXAMINATION</span>
-                </div>
-            </div>
-
-            <div class="card-body">
-                <div class="tm-info-grid">
-                    <div class="tm-item">
-                        <label>BRAND NAME</label>
-                        <span class="highlight">cold works production</span>
-                    </div>
-                    <div class="tm-item">
-                        <label>APPLICATION NO</label>
-                        <span>--</span>
-                    </div>
-                    <div class="tm-item">
-                        <label>PROTECTION DATE</label>
-                        <span>06.08.2026</span>
-                    </div>
-                    <div class="tm-item">
-                        <label>NICE CLASS</label>
-                        <span>Class 41</span>
-                    </div>
-                    <div class="tm-item full-width">
-                        <label>REGISTERED SERVICES</label>
-                        <span>Film, televizyon ve radyo programları yapım hizmetleri.</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card-footer">
-                <button class="action-btn" id="openTmModal">
-                    <i class="fas fa-file-contract"></i> VIEW REGISTRATION DETAILS
-                </button>
-                <span class="authority-text"><i class="fas fa-building"></i> Verified Entry — TÜRKPATENT Records</span>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="hq-footer">
-        <p>&copy; 2026 Cold Works Production. All Rights Reserved. All brand assets, logos, and characters are protected.</p>
-    </footer>
-
-    <!-- MODAL: DETAYLI MARKA TESCİL DOSYASI -->
-    <div class="modal-overlay" id="tmModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3><i class="fas fa-certificate"></i> TÜRKPATENT Application Dossier</h3>
-                <button class="close-btn" id="closeTmModal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <ul class="dossier-list">
-                    <li>
-                        <strong>Marka Örneği Yazılı İfadesi:</strong> 
-                        <span>cold works production</span>
-                    </li>
-                    <li>
-                        <strong>Marka Tipi & Türü:</strong> 
-                        <span>Şekil + Kelime / Ticaret-Hizmet Markası</span>
-                    </li>
-                    <li>
-                        <strong>Evrak Numarası:</strong> 
-                        <span>--</span>
-                    </li>
-                    <li>
-                        <strong>Başvuru & Koruma Tarihi:</strong> 
-                        <span>06.08.2026 21:32:53</span>
-                    </li>
-                    <li>
-                        <strong>Nice Sınıfı & Kapsam:</strong> 
-                        <span>Sınıf 41 — Film, televizyon ve radyo programları yapım hizmetleri.</span>
-                    </li>
-                    <li>
-                        <strong>Süreç Durumu:</strong> 
-                        <span>Veri giriş ve inceleme aşamasındadır. Şekli inceleme sonrasında Resmi Marka Bülteni'nde ilan edilecektir.</span>
-                    </li>
-                    <li>
-                        <strong>Hak Sahipliği:</strong> 
-                        <span>Müşterek Gerçek Kişi Mülkiyeti (Cold Works Production Executive Board)</span>
-                    </li>
-                </ul>
-            </div>
+    <div class="maintenance-container">
+        <div class="brand-code">Cold Works Production</div>
+        <h1>System Maintenance</h1>
+        <p>Our digital infrastructure is currently undergoing scheduled updates and optimizations. All operational systems will resume shortly.</p>
+        <div class="status-badge">
+            <span class="pulse-dot"></span>
+            <span>STATUS: OFFLINE // LOCKDOWN_ACTIVE</span>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <footer>
+        <p>&copy; 2026 Cold Works Production&reg;. All Rights Reserved. Registered Trademark by TÜRKPATENT. Owner: Bora Ataberk K.</p>
+    </footer>
+
 </body>
 </html>
