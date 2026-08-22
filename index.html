@@ -3,101 +3,270 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cold Works Production — Maintenance Mode</title>
+    <title>Cold Works Production — System Maintenance</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="https://imgur.com/HpfJeZJ.png">
-
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --neon-magenta: #ff0055;
+            --neon-cyan: #00f3ff;
+            --neon-yellow: #ffea00;
+            --dark-bg: #09090b;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            background-color: #0b0f19;
-            color: #cbd5e1;
-            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg);
+            color: #fff;
+            font-family: 'Space Mono', monospace;
             height: 100vh;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
+            position: relative;
+        }
+
+        /* COMIC HALFTONE BACKGROUND */
+        .halftone-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(circle, #222 1px, transparent 1.5px);
+            background-size: 6px 6px;
+            opacity: 0.3;
+            z-index: 1;
+            pointer-events: none;
+            animation: bg-shift 12s linear infinite;
+        }
+
+        /* DYNAMIC WARNING TICKER */
+        .warning-ticker-container {
+            position: absolute;
+            top: 15%;
+            left: -10%;
+            width: 120%;
+            background: var(--neon-yellow);
+            color: #000;
+            transform: rotate(-2deg);
+            z-index: 2;
+            overflow: hidden;
+            border-top: 3px solid #000;
+            border-bottom: 3px solid #000;
+            box-shadow: 0 0 20px rgba(255, 234, 0, 0.4);
+        }
+
+        .ticker-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            white-space: nowrap;
+            padding: 4px 0;
+            animation: scroll-ticker 18s linear infinite;
+            letter-spacing: 2px;
+        }
+
+        /* MAIN CONTENT CONTAINER */
+        .error-container {
+            position: relative;
+            z-index: 10;
+            max-width: 750px;
             padding: 40px;
+            background: rgba(9, 9, 11, 0.9);
+            border: 2px solid var(--neon-cyan);
+            box-shadow: 8px 8px 0px var(--neon-magenta), -8px -8px 0px var(--neon-cyan);
+            animation: container-jitter 4s infinite;
         }
-        .maintenance-container {
-            text-align: center;
-            max-width: 500px;
-            margin: auto;
-        }
-        .brand-code {
-            font-family: 'Fira Code', monospace;
-            font-size: 13px;
+
+        /* GLITCH HEADING */
+        .glitch-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            color: #fff;
             letter-spacing: 3px;
-            color: #38bdf8;
-            margin-bottom: 20px;
+        }
+
+        .glitch-title::before,
+        .glitch-title::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+        }
+
+        .glitch-title::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--neon-magenta);
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+
+        .glitch-title::after {
+            left: -2px;
+            text-shadow: 2px 0 var(--neon-cyan);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+
+        .sub-heading {
+            font-size: 1.1rem;
+            color: var(--neon-yellow);
+            margin-bottom: 25px;
+            font-weight: 700;
+            text-shadow: 2px 2px 0px #000;
+            letter-spacing: 1px;
+        }
+
+        .error-desc {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #cbd5e1;
+            border-left: 4px solid var(--neon-magenta);
+            padding-left: 15px;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .status-box {
+            background: #000;
+            border: 1px solid #222;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.15), transparent);
+            animation: scan-line 3.5s infinite;
+        }
+
+        .status-label {
+            font-size: 0.75rem;
+            color: #777;
+            margin-bottom: 5px;
             text-transform: uppercase;
         }
-        h1 {
-            font-size: 26px;
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 12px;
-            letter-spacing: -0.5px;
+
+        .status-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: var(--neon-magenta);
+            animation: text-flicker 0.2s infinite;
         }
-        p {
-            font-size: 14px;
-            color: #94a3b8;
-            line-height: 1.6;
-            margin-bottom: 30px;
+
+        .status-value.cyan {
+            color: var(--neon-cyan);
         }
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(56, 189, 248, 0.05);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-family: 'Fira Code', monospace;
-            font-size: 12px;
-            color: #38bdf8;
-        }
-        .pulse-dot {
-            width: 7px;
-            height: 7px;
-            background-color: #38bdf8;
-            border-radius: 50%;
-            box-shadow: 0 0 8px #38bdf8;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(0.9); }
-            100% { opacity: 1; transform: scale(1); }
-        }
+
+        /* FOOTER */
         footer {
-            font-size: 12px;
-            color: #64748b;
-            font-family: 'Fira Code', monospace;
+            position: absolute;
+            bottom: 20px;
+            font-size: 0.75rem;
+            color: #555;
+            z-index: 10;
             text-align: center;
+            width: 100%;
+            letter-spacing: 1px;
+        }
+
+        /* KEYFRAMES */
+        @keyframes scroll-ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes bg-shift {
+            0% { background-position: 0 0; }
+            100% { background-position: 40px 40px; }
+        }
+
+        @keyframes container-jitter {
+            0%, 100% { transform: translate(0, 0); }
+            95% { transform: translate(0, 0); }
+            96% { transform: translate(1px, -1px); }
+            97% { transform: translate(-1px, 1px); }
+            98% { transform: translate(1px, 1px); }
+            99% { transform: translate(-1px, -1px); }
+        }
+
+        @keyframes glitch-anim-1 {
+            0% { clip-path: inset(10% 0 90% 0); }
+            50% { clip-path: inset(80% 0 5% 0); }
+            100% { clip-path: inset(40% 0 40% 0); }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% { clip-path: inset(70% 0 20% 0); }
+            50% { clip-path: inset(10% 0 70% 0); }
+            100% { clip-path: inset(30% 0 50% 0); }
+        }
+
+        @keyframes scan-line {
+            0% { left: -100%; }
+            100% { left: 200%; }
+        }
+
+        @keyframes text-flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.85; text-shadow: 1px 0 var(--neon-cyan); }
+            100% { opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-    <div class="maintenance-container">
-        <div class="brand-code">Cold Works Production</div>
-        <h1>System Maintenance</h1>
-        <p>Our digital infrastructure is currently undergoing scheduled updates and optimizations. All operational systems will resume shortly.</p>
-        <div class="status-badge">
-            <span class="pulse-dot"></span>
-            <span>STATUS: OFFLINE // LOCKDOWN_ACTIVE</span>
+    <!-- COMIC DOTS BACKGROUND -->
+    <div class="halftone-bg"></div>
+
+    <!-- WARNING TICKER -->
+    <div class="warning-ticker-container">
+        <div class="ticker-text">
+            CRITICAL SYSTEM LOCKDOWN // CONCEPT GENERATION FAILED // OPERATIONS DELAYED // CRITICAL SYSTEM LOCKDOWN // CONCEPT GENERATION FAILED // OPERATIONS DELAYED // 
         </div>
     </div>
 
+    <!-- MAIN PANEL -->
+    <main class="error-container">
+        <h1 class="glitch-title" data-text="SYSTEM LOCKDOWN">SYSTEM LOCKDOWN</h1>
+        <div class="sub-heading">CRITICAL OPERATIONAL DELAY</div>
+
+        <p class="error-desc">
+            Cold Works Production core pipelines are currently on hold. We are facing a severe bottleneck regarding concept generation for the upcoming version, leading to unavoidable delays across all active divisions and output channels.
+        </p>
+
+        <div class="status-grid">
+            <div class="status-box">
+                <div class="status-label">Concept Pipeline</div>
+                <div class="status-value">BLOCKED</div>
+            </div>
+            <div class="status-box">
+                <div class="status-label">Operational Status</div>
+                <div class="status-value cyan">DELAYED</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
     <footer>
         <p>&copy; 2026 Cold Works Production&reg;. All Rights Reserved. Registered Trademark by TÜRKPATENT. Owner: Bora Ataberk K.</p>
     </footer>
