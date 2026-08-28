@@ -1,276 +1,642 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cold Works Production — System Maintenance</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="https://imgur.com/HpfJeZJ.png">
-    <style>
-        :root {
-            --neon-magenta: #ff0055;
-            --neon-cyan: #00f3ff;
-            --neon-yellow: #ffea00;
-            --dark-bg: #09090b;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Headquarters — Cold Works Production</title>
+<style>
+:root{
+  --bg: #0b0c10;
+  --bg-soft: #121319;
+  --card: #16171f;
+  --border: #23242f;
+  --text: #eceef2;
+  --text-dim: #9aa0ac;
+  --accent: #7c8cff;
+  --accent-soft: rgba(124,140,255,0.12);
+  --accent-2: #ff7ca8;
+  --radius: 16px;
+  --maxw: 880px;
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+*{box-sizing:border-box;}
 
-        body {
-            background-color: var(--dark-bg);
-            color: #fff;
-            font-family: 'Space Mono', monospace;
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+  line-height:1.6;
+  position:relative;
+  overflow-x:hidden;
+}
 
-        /* COMIC HALFTONE BACKGROUND */
-        .halftone-bg {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: radial-gradient(circle, #222 1px, transparent 1.5px);
-            background-size: 6px 6px;
-            opacity: 0.3;
-            z-index: 1;
-            pointer-events: none;
-            animation: bg-shift 12s linear infinite;
-        }
+.bg-glow{
+  position:fixed;
+  top:-20%;
+  left:50%;
+  transform:translateX(-50%);
+  width:900px;
+  height:900px;
+  background:radial-gradient(circle, var(--accent-soft) 0%, transparent 70%);
+  pointer-events:none;
+  z-index:0;
+}
 
-        /* DYNAMIC WARNING TICKER */
-        .warning-ticker-container {
-            position: absolute;
-            top: 15%;
-            left: -10%;
-            width: 120%;
-            background: var(--neon-yellow);
-            color: #000;
-            transform: rotate(-2deg);
-            z-index: 2;
-            overflow: hidden;
-            border-top: 3px solid #000;
-            border-bottom: 3px solid #000;
-            box-shadow: 0 0 20px rgba(255, 234, 0, 0.4);
-        }
+header, main, footer{ position:relative; z-index:1; }
 
-        .ticker-text {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.8rem;
-            white-space: nowrap;
-            padding: 4px 0;
-            animation: scroll-ticker 18s linear infinite;
-            letter-spacing: 2px;
-        }
+/* HEADER */
+.hq-header{
+  max-width:1100px;
+  margin:0 auto;
+  padding:24px 24px 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px;
+}
+.hq-header__brand{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:700;
+  letter-spacing:0.06em;
+  font-size:0.85rem;
+}
+.hq-header__dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 10px var(--accent);
+}
+.hq-header__nav{
+  display:flex;
+  gap:20px;
+  font-size:0.9rem;
+}
+.hq-header__nav a{
+  color:var(--text-dim);
+  text-decoration:none;
+  transition:color .15s ease;
+}
+.hq-header__nav a:hover{ color:var(--text); }
 
-        /* MAIN CONTENT CONTAINER */
-        .error-container {
-            position: relative;
-            z-index: 10;
-            max-width: 750px;
-            padding: 40px;
-            background: rgba(9, 9, 11, 0.9);
-            border: 2px solid var(--neon-cyan);
-            box-shadow: 8px 8px 0px var(--neon-magenta), -8px -8px 0px var(--neon-cyan);
-            animation: container-jitter 4s infinite;
-        }
+/* HERO */
+.hero{
+  max-width:var(--maxw);
+  margin:70px auto 40px;
+  padding:0 24px;
+  text-align:center;
+}
+.hero__eyebrow{
+  text-transform:uppercase;
+  letter-spacing:0.2em;
+  font-size:0.75rem;
+  color:var(--accent);
+  margin-bottom:14px;
+}
+.hero h1{
+  font-size:clamp(2rem, 5vw, 3.2rem);
+  margin:0 0 16px;
+  background:linear-gradient(120deg, #fff, #b7bcff);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.hero__sub{
+  color:var(--text-dim);
+  max-width:560px;
+  margin:0 auto 28px;
+  font-size:1.05rem;
+}
+.hero__actions{
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
 
-        /* GLITCH HEADING */
-        .glitch-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 4rem;
-            position: relative;
-            display: inline-block;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-            color: #fff;
-            letter-spacing: 3px;
-        }
+.btn{
+  display:inline-block;
+  padding:12px 22px;
+  border-radius:999px;
+  text-decoration:none;
+  font-weight:600;
+  font-size:0.92rem;
+  border:1px solid transparent;
+  cursor:pointer;
+  transition: transform .15s ease, background .15s ease, border-color .15s ease;
+}
+.btn--primary{
+  background:var(--accent);
+  color:#0b0c10;
+}
+.btn--primary:hover{ transform:translateY(-1px); }
+.btn--ghost{
+  background:transparent;
+  border-color:var(--border);
+  color:var(--text);
+}
+.btn--ghost:hover{ border-color:var(--accent); }
+.btn--wide{ width:100%; text-align:center; }
 
-        .glitch-title::before,
-        .glitch-title::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--dark-bg);
-        }
+/* STATUS STRIP */
+.status-strip{
+  max-width:var(--maxw);
+  margin:0 auto 60px;
+  padding:16px 24px;
+  display:flex;
+  gap:24px;
+  flex-wrap:wrap;
+  justify-content:center;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:999px;
+  width:fit-content;
+}
+.status-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:0.85rem;
+  color:var(--text-dim);
+}
+.status-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--text-dim);
+}
+.status-dot--live{
+  background:#5ee88f;
+  box-shadow:0 0 8px #5ee88f;
+}
+.status-label{ color:var(--text-dim); }
+.status-value{ color:var(--text); font-weight:600; }
 
-        .glitch-title::before {
-            left: 2px;
-            text-shadow: -2px 0 var(--neon-magenta);
-            animation: glitch-anim-1 2s infinite linear alternate-reverse;
-        }
+/* SECTION HEADING (shared) */
+.section-heading{
+  max-width:var(--maxw);
+  margin:0 auto 28px;
+  padding:0 24px;
+  text-align:center;
+}
+.section-heading h2{
+  font-size:1.8rem;
+  margin:0 0 8px;
+}
+.section-heading p{
+  color:var(--text-dim);
+  margin:0;
+}
 
-        .glitch-title::after {
-            left: -2px;
-            text-shadow: 2px 0 var(--neon-cyan);
-            animation: glitch-anim-2 3s infinite linear alternate-reverse;
-        }
+section{ padding:60px 0; }
 
-        .sub-heading {
-            font-size: 1.1rem;
-            color: var(--neon-yellow);
-            margin-bottom: 25px;
-            font-weight: 700;
-            text-shadow: 2px 2px 0px #000;
-            letter-spacing: 1px;
-        }
+/* HELP / ACCORDION */
+.help__search{
+  max-width:var(--maxw);
+  margin:0 auto 24px;
+  padding:0 24px;
+}
+.help__search input{
+  width:100%;
+  padding:14px 18px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--text);
+  font-size:0.95rem;
+  outline:none;
+}
+.help__search input:focus{ border-color:var(--accent); }
 
-        .error-desc {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 25px;
-            color: #cbd5e1;
-            border-left: 4px solid var(--neon-magenta);
-            padding-left: 15px;
-        }
+.accordion{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:0 24px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.accordion__item{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  overflow:hidden;
+}
+.accordion__trigger{
+  width:100%;
+  background:none;
+  border:none;
+  color:var(--text);
+  padding:18px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:0.98rem;
+  text-align:left;
+  cursor:pointer;
+  font-family:inherit;
+}
+.accordion__icon{
+  color:var(--accent);
+  font-size:1.2rem;
+  transition:transform .2s ease;
+}
+.accordion__item.open .accordion__icon{ transform:rotate(45deg); }
+.accordion__panel{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .25s ease;
+  padding:0 20px;
+}
+.accordion__panel p{
+  color:var(--text-dim);
+  margin:0 0 18px;
+}
+.help__empty{
+  max-width:var(--maxw);
+  margin:20px auto 0;
+  padding:0 24px;
+  text-align:center;
+  color:var(--text-dim);
+}
 
-        .status-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
+/* SUPPORT FORM */
+.support__form{
+  max-width:600px;
+  margin:0 auto;
+  padding:0 24px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+.form-row{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.form-row label{
+  font-size:0.85rem;
+  color:var(--text-dim);
+}
+.form-row input,
+.form-row select,
+.form-row textarea{
+  background:var(--card);
+  border:1px solid var(--border);
+  color:var(--text);
+  padding:12px 14px;
+  border-radius:10px;
+  font-family:inherit;
+  font-size:0.95rem;
+  outline:none;
+  resize:vertical;
+}
+.form-row input:focus,
+.form-row select:focus,
+.form-row textarea:focus{
+  border-color:var(--accent);
+}
+.form-hint{
+  text-align:center;
+  font-size:0.85rem;
+  color:var(--text-dim);
+}
 
-        .status-box {
-            background: #000;
-            border: 1px solid #222;
-            padding: 15px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
+/* COMMUNITY */
+.community__cards{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:0 24px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(180px,1fr));
+  gap:16px;
+}
+.community__card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:22px 18px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  text-decoration:none;
+  color:var(--text);
+  transition: border-color .15s ease, transform .15s ease;
+}
+.community__card:hover{
+  border-color:var(--accent);
+  transform:translateY(-2px);
+}
+.community__icon{ font-size:1.6rem; }
+.community__title{ font-weight:700; }
+.community__desc{ color:var(--text-dim); font-size:0.85rem; }
 
-        .status-box::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 50%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.15), transparent);
-            animation: scan-line 3.5s infinite;
-        }
+/* FOOTER */
+.hq-footer{
+  text-align:center;
+  padding:40px 24px 60px;
+  color:var(--text-dim);
+  font-size:0.85rem;
+}
 
-        .status-label {
-            font-size: 0.75rem;
-            color: #777;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-        }
-
-        .status-value {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.8rem;
-            color: var(--neon-magenta);
-            animation: text-flicker 0.2s infinite;
-        }
-
-        .status-value.cyan {
-            color: var(--neon-cyan);
-        }
-
-        /* FOOTER */
-        footer {
-            position: absolute;
-            bottom: 20px;
-            font-size: 0.75rem;
-            color: #555;
-            z-index: 10;
-            text-align: center;
-            width: 100%;
-            letter-spacing: 1px;
-        }
-
-        /* KEYFRAMES */
-        @keyframes scroll-ticker {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        @keyframes bg-shift {
-            0% { background-position: 0 0; }
-            100% { background-position: 40px 40px; }
-        }
-
-        @keyframes container-jitter {
-            0%, 100% { transform: translate(0, 0); }
-            95% { transform: translate(0, 0); }
-            96% { transform: translate(1px, -1px); }
-            97% { transform: translate(-1px, 1px); }
-            98% { transform: translate(1px, 1px); }
-            99% { transform: translate(-1px, -1px); }
-        }
-
-        @keyframes glitch-anim-1 {
-            0% { clip-path: inset(10% 0 90% 0); }
-            50% { clip-path: inset(80% 0 5% 0); }
-            100% { clip-path: inset(40% 0 40% 0); }
-        }
-
-        @keyframes glitch-anim-2 {
-            0% { clip-path: inset(70% 0 20% 0); }
-            50% { clip-path: inset(10% 0 70% 0); }
-            100% { clip-path: inset(30% 0 50% 0); }
-        }
-
-        @keyframes scan-line {
-            0% { left: -100%; }
-            100% { left: 200%; }
-        }
-
-        @keyframes text-flicker {
-            0% { opacity: 1; }
-            50% { opacity: 0.85; text-shadow: 1px 0 var(--neon-cyan); }
-            100% { opacity: 1; }
-        }
-    </style>
+@media (max-width:640px){
+  .hq-header__nav{ gap:14px; font-size:0.82rem; }
+  .status-strip{ border-radius:16px; }
+}
+</style>
 </head>
 <body>
 
-    <!-- COMIC DOTS BACKGROUND -->
-    <div class="halftone-bg"></div>
+  <div class="bg-glow"></div>
 
-    <!-- WARNING TICKER -->
-    <div class="warning-ticker-container">
-        <div class="ticker-text">
-            CRITICAL SYSTEM LOCKDOWN // CONCEPT GENERATION FAILED // OPERATIONS DELAYED // CRITICAL SYSTEM LOCKDOWN // CONCEPT GENERATION FAILED // OPERATIONS DELAYED // 
-        </div>
+  <header class="hq-header">
+    <div class="hq-header__brand">
+      <span class="hq-header__dot"></span>
+      <span>COLD WORKS PRODUCTION</span>
     </div>
+    <nav class="hq-header__nav">
+      <a href="#welcome">Welcome</a>
+      <a href="#help">Help Center</a>
+      <a href="#support">Get in Touch</a>
+      <a href="#community">Community</a>
+    </nav>
+  </header>
 
-    <!-- MAIN PANEL -->
-    <main class="error-container">
-        <h1 class="glitch-title" data-text="SYSTEM LOCKDOWN">SYSTEM LOCKDOWN</h1>
-        <div class="sub-heading">CRITICAL OPERATIONAL DELAY</div>
+  <main>
+    <!-- HERO -->
+    <section id="welcome" class="hero">
+      <p class="hero__eyebrow">Headquarters</p>
+      <h1>You can always come here.</h1>
+      <p class="hero__sub">
+        This is the heart of Cold Works Production. Got a question, something not
+        working right, or just curious what's going on — this is the place.
+      </p>
+      <div class="hero__actions">
+        <a href="#help" class="btn btn--primary">Go to Help Center</a>
+        <a href="#support" class="btn btn--ghost">Get in Touch</a>
+      </div>
+    </section>
 
-        <p class="error-desc">
-            Cold Works Production core pipelines are currently on hold. We are facing a severe bottleneck regarding concept generation for the upcoming version, leading to unavoidable delays across all active divisions and output channels.
-        </p>
+    <!-- STATUS STRIP -->
+    <section class="status-strip">
+      <div class="status-item">
+        <span class="status-dot status-dot--live"></span>
+        <span>Team is currently active</span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">Average response time</span>
+        <span class="status-value">~1 day</span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">Last updated</span>
+        <span class="status-value" id="last-update">—</span>
+      </div>
+    </section>
 
-        <div class="status-grid">
-            <div class="status-box">
-                <div class="status-label">Concept Pipeline</div>
-                <div class="status-value">BLOCKED</div>
-            </div>
-            <div class="status-box">
-                <div class="status-label">Operational Status</div>
-                <div class="status-value cyan">DELAYED</div>
-            </div>
+    <!-- HELP CENTER -->
+    <section id="help" class="help">
+      <div class="section-heading">
+        <h2>Help Center</h2>
+        <p>The most common questions live here. Can't find yours? Just reach out below.</p>
+      </div>
+
+      <div class="help__search">
+        <input type="text" id="faq-search" placeholder="Search for something… (e.g. 'publishing', 'submission', 'Discord')">
+      </div>
+
+      <div class="accordion" id="accordion">
+
+        <div class="accordion__item" data-cat="general">
+          <button class="accordion__trigger">
+            <span>What exactly does Cold Works Production do?</span>
+            <span class="accordion__icon">+</span>
+          </button>
+          <div class="accordion__panel">
+            <p>Music production is our main focus, and we also support publishing and
+            distribution. Alongside that, we run art, character (mascot), and community-driven
+            projects. In short, we don't fit in one box — we're a team that just loves creating.</p>
+          </div>
         </div>
-    </main>
 
-    <!-- FOOTER -->
-    <footer>
-        <p>&copy; 2026 Cold Works Production&reg;. All Rights Reserved. Registered Trademark by TÜRKPATENT. Owner: Bora Ataberk K.</p>
-    </footer>
+        <div class="accordion__item" data-cat="publishing">
+          <button class="accordion__trigger">
+            <span>How can I apply to get my music published?</span>
+            <span class="accordion__icon">+</span>
+          </button>
+          <div class="accordion__panel">
+            <p>Our publishing/distribution side can help with that. The fastest way is to
+            select "Publishing" as the topic in the Get in Touch section below and briefly
+            tell us about yourself and your project. The team will get back to you.</p>
+          </div>
+        </div>
 
+        <div class="accordion__item" data-cat="art">
+          <button class="accordion__trigger">
+            <span>Can I submit my work to the art gallery?</span>
+            <span class="accordion__icon">+</span>
+          </button>
+          <div class="accordion__panel">
+            <p>Absolutely. You can share your work through the art submission section. After
+            review, we'll let you know whether it's been added to the gallery.</p>
+          </div>
+        </div>
+
+        <div class="accordion__item" data-cat="general">
+          <button class="accordion__trigger">
+            <span>Who are the mascots (Violet, Riley, Lucia) and what do they do?</span>
+            <span class="accordion__icon">+</span>
+          </button>
+          <div class="accordion__panel">
+            <p>Think of them as the faces of the brand — each one stands out in a different
+            area (for example, you might run into Violet on the voice/DM side). Over time,
+            each of them will get their own dedicated page.</p>
+          </div>
+        </div>
+
+        <div class="accordion__item" data-cat="general">
+          <button class="accordion__trigger">
+            <span>What is "The 7th Cycle of Death"?</span>
+            <span class="accordion__icon">+</span>
+          </button>
+          <div class="accordion__panel">
+            <p>It's a manga/story project we've been developing. You can follow the chapters
+            and updates through its page.</p>
+          </div>
+        </div>
+
+        <div class="accordion__item" data-cat="support">
+          <button class="accordion__trigger">
+            <span>I sent a message but haven't heard back — what should I do?</span>
+            <span class="accordion__icon">+</span>
+          </button>
+          <div class="accordion__panel">
+            <p>You might just be in the queue — we go through messages one by one, so it can
+            take a bit of time. Our average response time is listed above. If it's been a
+            while, we recommend using the Get in Touch form instead — we track those more closely.</p>
+          </div>
+        </div>
+
+        <div class="accordion__item" data-cat="support">
+          <button class="accordion__trigger">
+            <span>Should I message on Discord or use this site?</span>
+            <span class="accordion__icon">+</span>
+          </button>
+          <div class="accordion__panel">
+            <p>Either works. Messages on Discord go through our queue system, while the Get in
+            Touch form here comes to us directly. Unless it's urgent, both move at about the
+            same pace.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="help__empty" id="faq-empty" hidden>We couldn't find a topic that matches — but feel free to reach out below, we're happy to help.</p>
+    </section>
+
+    <!-- SUPPORT FORM (Formspree — plain native submit, no JS/fetch involved) -->
+    <section id="support" class="support">
+      <div class="section-heading">
+        <h2>Get in Touch</h2>
+        <p>Whatever it is, just fill out the box below. We'll go through it and get back to you.</p>
+      </div>
+
+      <form class="support__form" id="support-form" action="https://formspree.io/f/xzebbbvj" method="POST">
+        <div class="form-row">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="What should we call you?" required>
+        </div>
+
+        <div class="form-row">
+          <label for="discord">Discord Username</label>
+          <input type="text" id="discord" name="discord" placeholder="e.g. abby" required>
+        </div>
+
+        <div class="form-row">
+          <label for="email">E-Mail</label>
+          <input type="email" id="email" name="_replyto" placeholder="you@example.com" required>
+        </div>
+
+        <div class="form-row">
+          <label for="topic">Topic</label>
+          <select id="topic" name="topic">
+            <option value="general">A general question</option>
+            <option value="publishing">Publishing / Distribution</option>
+            <option value="art">Art Submission</option>
+            <option value="technical">Something's broken on the site</option>
+            <option value="other">Something else</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label for="message">Description</label>
+          <textarea id="message" name="message" rows="5" placeholder="Give us a quick rundown of what's going on, we'll do our best." required></textarea>
+        </div>
+
+        <!-- Formspree: keeps the email subject clean -->
+        <input type="hidden" name="_subject" value="New message from Headquarters">
+
+        <button type="submit" class="btn btn--primary btn--wide" id="submit-btn">Send Message</button>
+        <p class="form-hint">You'll be taken to a confirmation page after sending.</p>
+      </form>
+    </section>
+
+    <!-- COMMUNITY -->
+    <section id="community" class="community">
+      <div class="section-heading">
+        <h2>Community</h2>
+        <p>Want to chat, follow along with projects, or just hang out? We're here.</p>
+      </div>
+      <div class="community__cards">
+        <a class="community__card" href="https://discord.gg/coldworksproduction" target="_blank" rel="noopener">
+          <span class="community__icon">💬</span>
+          <span class="community__title">Discord</span>
+          <span class="community__desc">Live chat, announcements, DM queue</span>
+        </a>
+        <a class="community__card" href="https://coldworksproduction.com/" target="_blank" rel="noopener">
+          <span class="community__icon">🌐</span>
+          <span class="community__title">Main Site</span>
+          <span class="community__desc">coldworksproduction.com</span>
+        </a>
+        <a class="community__card" href="https://musicengine.coldworksproduction.com/" target="_blank" rel="noopener">
+          <span class="community__icon">🎧</span>
+          <span class="community__title">CW PLAY</span>
+          <span class="community__desc">Our music side</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="hq-footer">
+    <p>Cold Works Production — a team that loves to create.</p>
+  </footer>
+
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  // --- Last updated date (automatic) ---
+  const lastUpdateEl = document.getElementById('last-update');
+  if (lastUpdateEl) {
+    const now = new Date();
+    lastUpdateEl.textContent = now.toLocaleDateString('en-US', {
+      day: 'numeric', month: 'long', year: 'numeric'
+    });
+  }
+
+  // --- Accordion (Help Center) ---
+  const items = document.querySelectorAll('.accordion__item');
+
+  items.forEach(item => {
+    const trigger = item.querySelector('.accordion__trigger');
+    const panel = item.querySelector('.accordion__panel');
+
+    trigger.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+
+      // Keep only one question open at a time
+      items.forEach(other => {
+        other.classList.remove('open');
+        other.querySelector('.accordion__panel').style.maxHeight = null;
+      });
+
+      if (!isOpen) {
+        item.classList.add('open');
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // --- FAQ search ---
+  const searchInput = document.getElementById('faq-search');
+  const emptyState = document.getElementById('faq-empty');
+
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.trim().toLowerCase();
+      let visibleCount = 0;
+
+      items.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        const matches = text.includes(query);
+        item.style.display = matches ? '' : 'none';
+        if (matches) visibleCount++;
+
+        // Close any open panel that no longer matches, to avoid confusion
+        if (!matches && item.classList.contains('open')) {
+          item.classList.remove('open');
+          item.querySelector('.accordion__panel').style.maxHeight = null;
+        }
+      });
+
+      emptyState.hidden = visibleCount !== 0;
+    });
+  }
+
+  // Note: the support form below submits natively (plain POST) to Formspree —
+  // no fetch/AJAX involved, so there's nothing here that can fail due to
+  // CORS or sandboxed-preview restrictions. Formspree handles the redirect
+  // and confirmation screen on its own.
+
+});
+  </script>
 </body>
 </html>
