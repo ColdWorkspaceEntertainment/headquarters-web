@@ -4,640 +4,1566 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Headquarters — Cold Works Production</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="icon" type="image/png" href="https://imgur.com/HpfJeZJ.png">
 <style>
-:root{
-  --bg: #0b0c10;
-  --bg-soft: #121319;
-  --card: #16171f;
-  --border: #23242f;
-  --text: #eceef2;
-  --text-dim: #9aa0ac;
-  --accent: #7c8cff;
-  --accent-soft: rgba(124,140,255,0.12);
-  --accent-2: #ff7ca8;
-  --radius: 16px;
-  --maxw: 880px;
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none !important;
+    scroll-behavior: smooth;
 }
 
-*{box-sizing:border-box;}
+:root {
+    --accent: #b48cff;
+    --accent-hover: #9b6dff;
+    --pink-soft: #f2ecff;
+    --pink-bg: #f8f5ff;
+    --card-bg: #ffffff;
+    --text-primary: #4a3e43;
+    --text-muted: #8c7a82;
+    --border-color: #ddceff;
 
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
-  line-height:1.6;
-  position:relative;
-  overflow-x:hidden;
-}
-
-.bg-glow{
-  position:fixed;
-  top:-20%;
-  left:50%;
-  transform:translateX(-50%);
-  width:900px;
-  height:900px;
-  background:radial-gradient(circle, var(--accent-soft) 0%, transparent 70%);
-  pointer-events:none;
-  z-index:0;
+    --font-cute: 'Fredoka', sans-serif;
+    --font-heading: 'Space Grotesk', sans-serif;
+    --smooth-bounce: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-header, main, footer{ position:relative; z-index:1; }
-
-/* HEADER */
-.hq-header{
-  max-width:1100px;
-  margin:0 auto;
-  padding:24px 24px 0;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:12px;
-}
-.hq-header__brand{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-weight:700;
-  letter-spacing:0.06em;
-  font-size:0.85rem;
-}
-.hq-header__dot{
-  width:8px;height:8px;border-radius:50%;
-  background:var(--accent);
-  box-shadow:0 0 10px var(--accent);
-}
-.hq-header__nav{
-  display:flex;
-  gap:20px;
-  font-size:0.9rem;
-}
-.hq-header__nav a{
-  color:var(--text-dim);
-  text-decoration:none;
-  transition:color .15s ease;
-}
-.hq-header__nav a:hover{ color:var(--text); }
-
-/* HERO */
-.hero{
-  max-width:var(--maxw);
-  margin:70px auto 40px;
-  padding:0 24px;
-  text-align:center;
-}
-.hero__eyebrow{
-  text-transform:uppercase;
-  letter-spacing:0.2em;
-  font-size:0.75rem;
-  color:var(--accent);
-  margin-bottom:14px;
-}
-.hero h1{
-  font-size:clamp(2rem, 5vw, 3.2rem);
-  margin:0 0 16px;
-  background:linear-gradient(120deg, #fff, #b7bcff);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-}
-.hero__sub{
-  color:var(--text-dim);
-  max-width:560px;
-  margin:0 auto 28px;
-  font-size:1.05rem;
-}
-.hero__actions{
-  display:flex;
-  gap:12px;
-  justify-content:center;
-  flex-wrap:wrap;
+body {
+    font-family: var(--font-cute);
+    background-color: var(--pink-bg);
+    background-image: radial-gradient(#ddceff 1px, transparent 1px);
+    background-size: 24px 24px;
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
 }
 
-.btn{
-  display:inline-block;
-  padding:12px 22px;
-  border-radius:999px;
-  text-decoration:none;
-  font-weight:600;
-  font-size:0.92rem;
-  border:1px solid transparent;
-  cursor:pointer;
-  transition: transform .15s ease, background .15s ease, border-color .15s ease;
-}
-.btn--primary{
-  background:var(--accent);
-  color:#0b0c10;
-}
-.btn--primary:hover{ transform:translateY(-1px); }
-.btn--ghost{
-  background:transparent;
-  border-color:var(--border);
-  color:var(--text);
-}
-.btn--ghost:hover{ border-color:var(--accent); }
-.btn--wide{ width:100%; text-align:center; }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--pink-soft); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 20px; }
 
-/* STATUS STRIP */
-.status-strip{
-  max-width:var(--maxw);
-  margin:0 auto 60px;
-  padding:16px 24px;
-  display:flex;
-  gap:24px;
-  flex-wrap:wrap;
-  justify-content:center;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:999px;
-  width:fit-content;
-}
-.status-item{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-size:0.85rem;
-  color:var(--text-dim);
-}
-.status-dot{
-  width:8px;height:8px;border-radius:50%;
-  background:var(--text-dim);
-}
-.status-dot--live{
-  background:#5ee88f;
-  box-shadow:0 0 8px #5ee88f;
-}
-.status-label{ color:var(--text-dim); }
-.status-value{ color:var(--text); font-weight:600; }
-
-/* SECTION HEADING (shared) */
-.section-heading{
-  max-width:var(--maxw);
-  margin:0 auto 28px;
-  padding:0 24px;
-  text-align:center;
-}
-.section-heading h2{
-  font-size:1.8rem;
-  margin:0 0 8px;
-}
-.section-heading p{
-  color:var(--text-dim);
-  margin:0;
+/* Klavye ile gezinen kullanıcılar için görünür odak hali */
+a:focus-visible,
+button:focus-visible,
+.art-item:focus-visible {
+    outline: 3px solid #8b5cf6;
+    outline-offset: 3px;
 }
 
-section{ padding:60px 0; }
-
-/* HELP / ACCORDION */
-.help__search{
-  max-width:var(--maxw);
-  margin:0 auto 24px;
-  padding:0 24px;
-}
-.help__search input{
-  width:100%;
-  padding:14px 18px;
-  border-radius:12px;
-  border:1px solid var(--border);
-  background:var(--card);
-  color:var(--text);
-  font-size:0.95rem;
-  outline:none;
-}
-.help__search input:focus{ border-color:var(--accent); }
-
-.accordion{
-  max-width:var(--maxw);
-  margin:0 auto;
-  padding:0 24px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.accordion__item{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  overflow:hidden;
-}
-.accordion__trigger{
-  width:100%;
-  background:none;
-  border:none;
-  color:var(--text);
-  padding:18px 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  font-size:0.98rem;
-  text-align:left;
-  cursor:pointer;
-  font-family:inherit;
-}
-.accordion__icon{
-  color:var(--accent);
-  font-size:1.2rem;
-  transition:transform .2s ease;
-}
-.accordion__item.open .accordion__icon{ transform:rotate(45deg); }
-.accordion__panel{
-  max-height:0;
-  overflow:hidden;
-  transition:max-height .25s ease;
-  padding:0 20px;
-}
-.accordion__panel p{
-  color:var(--text-dim);
-  margin:0 0 18px;
-}
-.help__empty{
-  max-width:var(--maxw);
-  margin:20px auto 0;
-  padding:0 24px;
-  text-align:center;
-  color:var(--text-dim);
+/* Sabit nav bar'ın altında anchor hedeflerinin gizlenmesini önler */
+section[id] {
+    scroll-margin-top: 130px;
 }
 
-/* SUPPORT FORM */
-.support__form{
-  max-width:600px;
-  margin:0 auto;
-  padding:0 24px;
-  display:flex;
-  flex-direction:column;
-  gap:16px;
-}
-.form-row{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-.form-row label{
-  font-size:0.85rem;
-  color:var(--text-dim);
-}
-.form-row input,
-.form-row select,
-.form-row textarea{
-  background:var(--card);
-  border:1px solid var(--border);
-  color:var(--text);
-  padding:12px 14px;
-  border-radius:10px;
-  font-family:inherit;
-  font-size:0.95rem;
-  outline:none;
-  resize:vertical;
-}
-.form-row input:focus,
-.form-row select:focus,
-.form-row textarea:focus{
-  border-color:var(--accent);
-}
-.form-hint{
-  text-align:center;
-  font-size:0.85rem;
-  color:var(--text-dim);
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    row-gap: 10px;
+    padding: 15px 5%;
+    position: sticky;
+    top: 15px;
+    margin: 15px auto 0;
+    width: 90%;
+    max-width: 1200px;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(15px);
+    border: 2px solid var(--border-color);
+    border-radius: 30px;
+    box-shadow: 0 10px 25px rgba(255, 183, 197, 0.2);
 }
 
-/* COMMUNITY */
-.community__cards{
-  max-width:var(--maxw);
-  margin:0 auto;
-  padding:0 24px;
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(180px,1fr));
-  gap:16px;
-}
-.community__card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  padding:22px 18px;
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  text-decoration:none;
-  color:var(--text);
-  transition: border-color .15s ease, transform .15s ease;
-}
-.community__card:hover{
-  border-color:var(--accent);
-  transform:translateY(-2px);
-}
-.community__icon{ font-size:1.6rem; }
-.community__title{ font-weight:700; }
-.community__desc{ color:var(--text-dim); font-size:0.85rem; }
-
-/* FOOTER */
-.hq-footer{
-  text-align:center;
-  padding:40px 24px 60px;
-  color:var(--text-dim);
-  font-size:0.85rem;
+.logo {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: #8b5cf6;
+    letter-spacing: 1px;
 }
 
-@media (max-width:640px){
-  .hq-header__nav{ gap:14px; font-size:0.82rem; }
-  .status-strip{ border-radius:16px; }
+.nav-links { display: flex; gap: 8px; }
+.nav-links li a {
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 20px;
+    transition: var(--smooth-bounce);
 }
+.nav-links li a:hover {
+    color: #fff;
+    background: var(--accent);
+    transform: translateY(-2px);
+}
+
+/* Mobil menü butonu (masaüstünde gizli) */
+.nav-toggle {
+    display: none;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    font-size: 1rem;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 10%;
+}
+.hero h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(3rem, 7vw, 5rem);
+    font-weight: 700;
+    color: #6d3fa8;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 0px #ece0ff;
+}
+.hero p {
+    color: var(--text-muted);
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 25px;
+}
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.content-section { padding: 70px 10%; }
+.center-text { text-align: center; }
+.sub-title {
+    color: #8b5cf6;
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    display: block;
+    margin-bottom: 5px;
+}
+h2 {
+    font-family: var(--font-heading);
+    font-size: 2.3rem;
+    color: #4a3e43;
+    margin-bottom: 25px;
+}
+
+.mascot-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap-reverse;
+}
+.mascot-image-block, .mascot-info-block {
+    flex: 1;
+    min-width: 300px;
+}
+.mascot-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 30px;
+    border: 4px solid #fff;
+    box-shadow: 0 15px 30px rgba(255, 183, 197, 0.3);
+}
+.mascot-card {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 25px;
+    border: 2px solid var(--border-color);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+}
+.mascot-card ul {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.mascot-card li {
+    font-size: 1.05rem;
+    color: var(--text-primary);
+}
+.mascot-card i {
+    color: #8b5cf6;
+    margin-right: 8px;
+}
+
+.publishing-card, .manga-card {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 45px 35px;
+    background: var(--card-bg);
+    border: 2px dashed var(--accent);
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(255, 183, 197, 0.15);
+}
+.publishing-features {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 25px 0 35px;
+    color: var(--text-muted);
+}
+.publishing-features i { color: #8b5cf6; }
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 20px;
+    padding: 15px 0;
+}
+.art-item {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 20px;
+    padding: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--smooth-bounce);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+}
+.art-item:hover {
+    transform: translateY(-5px) scale(1.03);
+    border-color: var(--accent-hover);
+    box-shadow: 0 12px 25px rgba(255, 183, 197, 0.3);
+}
+.art-item img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 14px;
+    margin-bottom: 8px;
+}
+.art-item h4 {
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* ============ ORTAK (PARTNER) SOSYAL MEDYA BÖLÜMÜ ============ */
+.partner-card {
+    max-width: 700px;
+    margin: 0 auto;
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 30px;
+    padding: 35px;
+    box-shadow: 0 10px 25px rgba(255, 183, 197, 0.2);
+}
+.social-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-weight: 700;
+    color: #fff;
+    transition: var(--smooth-bounce);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+.social-link:hover { transform: translateY(-3px); }
+.social-youtube { background: #FF0000; }
+.social-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+.social-tiktok { background: #010101; }
+.social-facebook { background: #1877F2; }
+
+.special-admin-section {
+    background: #fff;
+    border: 2px solid var(--border-color);
+    border-radius: 30px;
+    padding: 35px;
+    box-shadow: 0 10px 25px rgba(255, 183, 197, 0.2);
+}
+.badge-tag {
+    background: var(--accent);
+    color: #fff;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.btn {
+    background: var(--accent);
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: 700;
+    display: inline-block;
+    border: none;
+    box-shadow: 0 5px 15px rgba(255, 183, 197, 0.4);
+    transition: var(--smooth-bounce);
+    cursor: pointer;
+}
+.btn:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+}
+.btn-secondary {
+    color: #8b5cf6;
+    border: 2px solid var(--accent);
+    padding: 10px 28px;
+    border-radius: 30px;
+    font-weight: 700;
+    transition: var(--smooth-bounce);
+    background: transparent;
+    cursor: pointer;
+}
+.btn-secondary:hover { background: var(--pink-soft); }
+.btn-dark { background: #4a3e43; color: #fff; }
+
+.subscribe-box {
+    background: var(--accent);
+    padding: 40px 20px;
+    border-radius: 30px;
+    color: #fff;
+    max-width: 800px;
+    margin: 0 auto;
+}
+.subscribe-form {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+.subscribe-form input {
+    padding: 14px 22px;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    width: 280px;
+}
+
+.tech-stack { padding: 40px 10%; text-align: center; }
+.tech-icons {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+.tech-icons span i { color: #8b5cf6; margin-right: 6px; }
+
+.alert-box {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 15px;
+    background: #fff5f5;
+    border: 1px dashed #ff8080;
+    border-radius: 15px;
+    color: #d9534f;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+.form-wrapper {
+    max-width: 700px;
+    margin: 0 auto;
+    background: var(--card-bg);
+    padding: 15px;
+    border-radius: 20px;
+    border: 2px solid var(--border-color);
+    position: relative;
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(5px);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+}
+.modal-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 25px;
+    text-align: center;
+    width: 280px;
+    border: 2px solid var(--border-color);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+.modal-card img#kutu-resim {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+.modal-card h2 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+.btn-close {
+    margin-top: 15px;
+    padding: 8px 20px;
+    background: var(--pink-soft);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.badge-info { padding: 40px 10%; color: var(--text-muted); }
+.badge-info img { width: 40px; margin-bottom: 10px; }
+
+.site-footer {
+    text-align: center;
+    padding: 25px 15px;
+    margin-top: 40px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    font-family: 'Fredoka', sans-serif;
+    opacity: 0.8;
+}
+
+/* Sağ üstteki Update Log açılır kutusu (eskiden inline style idi) */
+.update-menu-wrapper {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 9999;
+}
+.update-toggle-btn {
+    cursor: pointer;
+    padding: 8px 12px;
+    font-weight: bold;
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    font-family: var(--font-cute);
+    color: var(--text-primary);
+    transition: var(--smooth-bounce);
+}
+.update-toggle-btn:hover {
+    background: var(--accent);
+    color: #fff;
+}
+.update-box {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 42px;
+    width: 260px;
+    background: #fff;
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    box-shadow: 0 10px 25px rgba(255, 183, 197, 0.25);
+    border-radius: 14px;
+    font-family: var(--font-cute);
+    color: var(--text-primary);
+}
+.update-box.open { display: block; }
+.update-box h4 {
+    margin: 0 0 10px 0;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+    font-size: 15px;
+}
+.update-entry { margin-bottom: 8px; }
+.update-entry small { color: var(--text-muted); }
+.update-version { margin: 2px 0; font-size: 14px; }
+.update-text { margin: 0; font-size: 13px; }
+
+/* ============ SOL ÜSTTEKİ HESAP (AUTH) MENÜSÜ ============ */
+.auth-menu-wrapper {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 9999;
+}
+.auth-toggle-btn {
+    cursor: pointer;
+    padding: 8px 14px;
+    font-weight: bold;
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    font-family: var(--font-cute);
+    color: var(--text-primary);
+    transition: var(--smooth-bounce);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.auth-toggle-btn i { color: #8b5cf6; }
+.auth-toggle-btn:hover { background: var(--accent); color: #fff; }
+.auth-toggle-btn:hover i { color: #fff; }
+
+.auth-box {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 42px;
+    width: 220px;
+    background: #fff;
+    border: 1px solid var(--border-color);
+    padding: 16px;
+    box-shadow: 0 10px 25px rgba(255, 183, 197, 0.25);
+    border-radius: 14px;
+    font-family: var(--font-cute);
+    color: var(--text-primary);
+    text-align: center;
+}
+.auth-box.open { display: block; }
+.auth-box h4 { margin: 0 0 6px 0; font-size: 15px; }
+.auth-sub { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
+.auth-box .btn, .auth-box .btn-secondary, .auth-box .btn-dark {
+    width: 100%;
+    padding: 8px 0;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+.auth-box .btn:last-child, .auth-box .btn-secondary:last-child, .auth-box .btn-dark:last-child { margin-bottom: 0; }
+
+/* ============ AUTH (LOGIN/REGISTER) MODAL ============ */
+.auth-modal-card { width: 320px; }
+.auth-tabs { display: flex; gap: 8px; margin-bottom: 15px; }
+.auth-tab {
+    flex: 1;
+    padding: 8px 0;
+    background: var(--pink-soft);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: var(--font-cute);
+    font-weight: 600;
+    color: var(--text-muted);
+    transition: var(--smooth-bounce);
+}
+.auth-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.auth-modal-title { font-size: 1.3rem; margin-bottom: 15px; }
+.auth-form { display: flex; flex-direction: column; gap: 10px; }
+.auth-form input {
+    padding: 12px 16px;
+    border-radius: 20px;
+    border: 2px solid var(--border-color);
+    outline: none;
+    font-family: var(--font-cute);
+}
+.auth-form input:focus { border-color: var(--accent); }
+.auth-error { color: #d9534f; font-size: 0.8rem; min-height: 1em; margin: 0; }
+.auth-form .btn { margin-top: 5px; }
+
+.guest-lock-icon { font-size: 2rem; color: #8b5cf6; margin-bottom: 10px; display: block; }
+
+/* ============ MİSAFİR KİLİDİ (Send Art formu üstü) ============ */
+.guest-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(4px);
+    border-radius: 18px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    z-index: 10;
+}
+.guest-overlay.visible { display: flex; }
+.guest-overlay p { color: var(--text-muted); margin-bottom: 15px; font-weight: 600; }
+
+/* ============ COOKIE ONAY ÇUBUĞU ============ */
+.cookie-consent {
+    display: none;
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 92%;
+    max-width: 700px;
+    background: #fff;
+    border: 2px solid var(--border-color);
+    border-radius: 20px;
+    padding: 18px 22px;
+    box-shadow: 0 10px 30px rgba(255, 183, 197, 0.3);
+    z-index: 100000;
+    font-family: var(--font-cute);
+    text-align: center;
+}
+.cookie-consent.visible { display: block; }
+.cookie-consent p { font-size: 0.9rem; color: var(--text-primary); margin-bottom: 12px; }
+.cookie-consent i { color: #8b5cf6; margin-right: 4px; }
+.cookie-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.cookie-buttons .btn, .cookie-buttons .btn-secondary { padding: 8px 22px; font-size: 0.85rem; }
+
+@media (max-width: 768px) {
+    nav { width: 95%; padding: 10px 15px; }
+
+    .nav-toggle { display: flex; }
+
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        position: absolute;
+        top: calc(100% + 12px);
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.97);
+        border: 2px solid var(--border-color);
+        border-radius: 20px;
+        padding: 12px;
+        box-shadow: 0 10px 25px rgba(255, 183, 197, 0.25);
+
+        /* Varsayılan olarak kapalı; JS "open" sınıfıyla açar */
+        max-height: 0;
+        overflow: hidden;
+        padding: 0 12px;
+        border-width: 0;
+        transition: max-height 0.35s ease, padding 0.35s ease;
+    }
+    .nav-links.open {
+        max-height: 500px;
+        padding: 12px;
+        border-width: 2px;
+    }
+    .nav-links li a { display: block; text-align: center; }
+
+    .auth-menu-wrapper { top: 10px; left: 10px; }
+    .update-menu-wrapper { top: 10px; right: 10px; }
+}
+
+/* ANIMATED INTRO STYLES */
+#site-intro {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--pink-bg);
+    background-image: radial-gradient(#ddceff 1px, transparent 1px);
+    background-size: 24px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    animation: introFadeOut 0.8s ease 2.2s forwards;
+}
+
+.intro-logo-container {
+    text-align: center;
+    animation: introScaleUp 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.intro-logo {
+    width: 110px;
+    height: 110px;
+    object-fit: contain;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 10px 25px rgba(255, 183, 197, 0.4);
+}
+
+.intro-title {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: #6d3fa8;
+    letter-spacing: 1px;
+}
+
+@keyframes introScaleUp {
+    0% {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes introFadeOut {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+/* Sayfa geçişi: nav bar hariç, içerik fade out/in olur */
+body > *:not(nav):not(.update-menu-wrapper):not(.auth-menu-wrapper):not(#site-intro):not(#cookieConsent):not(#authModal):not(#guestLockModal):not(#mainMenuOverlay) {
+    transition: opacity 0.28s ease;
+}
+body.page-fading > *:not(nav):not(.update-menu-wrapper):not(.auth-menu-wrapper):not(#site-intro):not(#cookieConsent):not(#authModal):not(#guestLockModal):not(#mainMenuOverlay) {
+    opacity: 0.3;
+}
+
+/* ============================================================
+   YENİ EKLENENLER — mevcut hiçbir kural değiştirilmedi, sadece
+   Wii tarzı ana menü, genişletilmiş footer ve dil seçici için
+   yeni stiller eklendi.
+   ============================================================ */
+
+/* ============ ANA MENÜ BUTONU (nav içinde) ============ */
+.main-menu-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-family: var(--font-cute);
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: var(--smooth-bounce);
+}
+.main-menu-btn:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+}
+.main-menu-btn i { font-size: 0.95rem; }
+
+/* ============ WII TARZI TAM EKRAN ANA MENÜ ============ */
+.wii-menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 240, 245, 0.75);
+    backdrop-filter: blur(18px);
+    z-index: 20000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.96);
+    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), visibility 0.35s;
+    padding: 20px;
+}
+.wii-menu-overlay.open {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+.wii-menu-box {
+    width: 100%;
+    max-width: 920px;
+    max-height: 85vh;
+    overflow-y: auto;
+    background: var(--card-bg);
+    border: 3px solid var(--border-color);
+    border-radius: 35px;
+    padding: 30px;
+    box-shadow: 0 25px 60px rgba(255, 183, 197, 0.4);
+}
+.wii-menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.wii-menu-header h2 {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    color: #6d3fa8;
+    margin: 0;
+}
+.wii-menu-close {
+    background: var(--pink-soft);
+    border: 2px solid var(--border-color);
+    color: var(--text-primary);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1rem;
+    flex-shrink: 0;
+    transition: var(--smooth-bounce);
+}
+.wii-menu-close:hover { background: var(--accent); color: #fff; }
+
+.wii-menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 18px;
+}
+.wii-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--pink-soft);
+    border: 2px solid var(--border-color);
+    border-radius: 24px;
+    padding: 22px 10px;
+    text-align: center;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: var(--smooth-bounce);
+}
+.wii-tile:hover, .wii-tile:focus-visible {
+    background: var(--accent);
+    color: #fff;
+    transform: translateY(-6px) scale(1.05);
+    box-shadow: 0 15px 25px rgba(255, 183, 197, 0.4);
+}
+.wii-tile-icon {
+    font-size: 1.7rem;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 50%;
+    color: #8b5cf6;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.05);
+    transition: var(--smooth-bounce);
+}
+.wii-tile:hover .wii-tile-icon, .wii-tile:focus-visible .wii-tile-icon {
+    transform: scale(1.1) rotate(-4deg);
+}
+
+@media (max-width: 600px) {
+    .wii-menu-box { padding: 20px; border-radius: 24px; }
+    .wii-menu-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; }
+    .wii-tile { padding: 16px 6px; font-size: 0.75rem; }
+    .wii-tile-icon { width: 46px; height: 46px; font-size: 1.4rem; }
+
+    .main-menu-btn { padding: 8px 14px; font-size: 12px; }
+    .logo { font-size: 1rem; }
+}
+
+/* ============ GENİŞLETİLMİŞ FOOTER (DistroKid örneğine göre) ============ */
+.site-footer-expanded {
+    margin-top: 40px;
+    padding: 45px 8% 25px;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    background: var(--pink-soft);
+    font-family: var(--font-cute);
+}
+.footer-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--border-color);
+}
+.footer-social { display: flex; gap: 16px; }
+.footer-social a {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    color: #8b5cf6;
+    font-size: 1rem;
+    transition: var(--smooth-bounce);
+}
+.footer-social a:hover { background: var(--accent); color: #fff; transform: translateY(-3px); }
+
+.footer-meta { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.footer-copyright { color: var(--text-muted); font-size: 0.9rem; font-weight: 600; }
+
+.lang-select {
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: 2px solid var(--border-color);
+    background: #fff;
+    color: var(--text-primary);
+    font-family: var(--font-cute);
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.footer-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+.footer-col h4 {
+    font-size: 0.95rem;
+    color: #4a3e43;
+    margin-bottom: 14px;
+    font-weight: 700;
+}
+.footer-col a {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    margin-bottom: 10px;
+    transition: color 0.25s ease;
+}
+.footer-col a:hover { color: #8b5cf6; }
+
+.footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.82rem;
+}
+.footer-bottom a { color: var(--text-muted); }
+.footer-bottom a:hover { color: #8b5cf6; }
+
+.footer-trademark {
+    margin-top: 20px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    opacity: 0.8;
+}
+
+/* ============================================================
+   TEK SAYFA (Wii tarzı) GÖRÜNÜRLÜK SİSTEMİ
+   ============================================================ */
+[data-page] {
+    display: none;
+}
+[data-page].page-visible {
+    display: block;
+}
+.hero.page-visible {
+    display: flex;
+}
+.mascot-container.page-visible {
+    display: flex;
+}
+
+/* ============ YASAL SAYFALAR (Gizlilik, Çerez, Kullanım Şartları) ============ */
+.policy-card {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 45px 40px;
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 30px;
+    box-shadow: 0 10px 25px rgba(255, 183, 197, 0.15);
+    text-align: left;
+}
+.policy-card > .sub-title,
+.policy-card > h2 {
+    text-align: center;
+}
+.policy-body h3 {
+    font-family: var(--font-heading);
+    color: #8b5cf6;
+    font-size: 1.05rem;
+    margin: 22px 0 8px;
+}
+.policy-body h3:first-child {
+    margin-top: 0;
+}
+.policy-body p {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+.policy-back {
+    display: block;
+    width: fit-content;
+    margin: 30px auto 0;
+}
+
+/* ============ SİTE HARİTASI ============ */
+.sitemap-grid {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* SIDE / TOP STATUS WIDGET - SPIDER-VERSE THEME */
+.side-status-widget {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    background: rgba(9, 9, 11, 0.95);
+    border: 2px solid #00f3ff;
+    border-right: none;
+    padding: 12px 16px;
+    max-width: 300px;
+    box-shadow: -6px 6px 0px #ff0055, 0 0 20px rgba(0, 243, 255, 0.4);
+    pointer-events: auto;
+    animation: widget-float 4s ease-in-out infinite;
+    backdrop-filter: blur(5px);
+}
+
+/* Dekoratif şerit */
+.side-status-stripe {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, #ffea00, #ff0055, #00f3ff);
+}
+
+.side-status-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.side-status-widget .status-icon {
+    font-size: 1.4rem;
+    color: #ffea00;
+    animation: icon-pulse 1.5s infinite;
+}
+
+.status-text-wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+.side-status-widget .status-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    color: #ff0055;
+    letter-spacing: 1px;
+    line-height: 1.1;
+    text-shadow: 1px 0 #00f3ff;
+}
+
+.side-status-widget .status-desc {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    color: #cbd5e1;
+    line-height: 1.3;
+    margin-top: 2px;
+}
+
+/* Mobil Cihazlar İçin */
+@media (max-width: 768px) {
+    .side-status-widget {
+        top: 75px;
+        right: 15px;
+        left: 15px;
+        transform: none;
+        max-width: none;
+        border: 2px solid #00f3ff;
+        border-right: 2px solid #00f3ff;
+        box-shadow: 0 6px 0px #ff0055, 0 0 15px rgba(255, 0, 85, 0.3);
+        animation: mobile-pulse 3s infinite;
+    }
+    .side-status-stripe {
+        width: 100%;
+        height: 4px;
+    }
+}
+
+/* Animasyonlar */
+@keyframes widget-float {
+    0%, 100% { transform: translateY(-50%) translateX(0); }
+    50% { transform: translateY(-50%) translateX(-4px); }
+}
+
+@keyframes icon-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.9); }
+}
+
+@keyframes mobile-pulse {
+    0%, 100% { border-color: #00f3ff; }
+    50% { border-color: #ffea00; }
+}
+
+/* ============ JOIN MEMBERSHIP FORM ============ */
+.join-form {
+    max-width: 480px;
+    margin: 30px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    text-align: left;
+}
+
+.join-form input[type="text"],
+.join-form input[type="email"],
+.join-form input[type="number"],
+.join-form textarea {
+    padding: 12px 18px;
+    border-radius: 20px;
+    border: 2px solid var(--border-color);
+    outline: none;
+    font-family: var(--font-cute);
+    color: var(--text-primary);
+    background: #fff;
+    width: 100%;
+    transition: border-color 0.25s ease;
+}
+.join-form input:focus,
+.join-form textarea:focus {
+    border-color: var(--accent);
+}
+.join-form textarea {
+    resize: vertical;
+    min-height: 70px;
+}
+
+.join-fields,
+.join-question {
+    border: 2px dashed var(--accent);
+    border-radius: 20px;
+    padding: 18px 20px;
+}
+.join-fields legend,
+.join-question legend {
+    color: #8b5cf6;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+    padding: 0 8px;
+}
+
+.join-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+}
+.join-fields label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.join-question {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.join-question label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.join-fields input[type="checkbox"],
+.join-question input[type="radio"] {
+    accent-color: var(--accent);
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+#consideration-reason {
+    margin-top: 4px;
+    padding-left: 24px;
+}
+#consideration-reason label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.join-form .btn {
+    align-self: center;
+    margin-top: 6px;
+}
+
+@media (max-width: 600px) {
+    .join-form { max-width: 100%; }
+    .join-fields, .join-question { padding: 14px 16px; }
+}
+
+/* ============================================================
+   HEADQUARTERS SAYFASINA ÖZEL EKLER
+   Yukarıdaki hiçbir kural değiştirilmedi; sadece FAQ akordiyonu
+   ve durum rozetleri için mevcut değişkenlerle uyumlu birkaç
+   yapısal kural eklendi.
+   ============================================================ */
+.hq-status-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 10px auto 0;
+}
+.hq-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    box-shadow: 0 5px 15px rgba(255, 183, 197, 0.15);
+}
+.hq-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    flex-shrink: 0;
+}
+.hq-status-dot--live {
+    background: #4CAF7D;
+    box-shadow: 0 0 6px rgba(76, 175, 125, 0.6);
+}
+
+.accordion-list {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.accordion-item {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: var(--smooth-bounce);
+}
+.accordion-item:hover {
+    border-color: var(--accent-hover);
+}
+.accordion-trigger {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    text-align: left;
+    font-family: var(--font-cute);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+.accordion-icon {
+    color: #8b5cf6;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+.accordion-item.open .accordion-icon { transform: rotate(45deg); }
+.accordion-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding: 0 24px;
+}
+.accordion-panel p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin: 0 0 20px;
+}
+.hq-search-wrap {
+    max-width: 800px;
+    margin: 0 auto 30px;
+}
+.hq-search-wrap input {
+    width: 100%;
+    padding: 14px 22px;
+    border-radius: 30px;
+    border: 2px solid var(--border-color);
+    outline: none;
+    font-family: var(--font-cute);
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    background: #fff;
+    transition: border-color 0.25s ease;
+}
+.hq-search-wrap input:focus { border-color: var(--accent); }
+.hq-empty-note {
+    text-align: center;
+    color: var(--text-muted);
+    margin-top: 20px;
+}
+.hq-form-hint {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-top: 14px;
+}
+
 </style>
 </head>
 <body>
 
-  <div class="bg-glow"></div>
+  <nav>
+    <div class="logo">COLD WORKS PRODUCTION</div>
+    <ul class="nav-links">
+      <li><a href="#welcome">Welcome</a></li>
+      <li><a href="#help">Help Center</a></li>
+      <li><a href="#support">Get in Touch</a></li>
+      <li><a href="#community">Community</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><i class="fa-solid fa-bars"></i></button>
+  </nav>
 
-  <header class="hq-header">
-    <div class="hq-header__brand">
-      <span class="hq-header__dot"></span>
-      <span>COLD WORKS PRODUCTION</span>
-    </div>
-    <nav class="hq-header__nav">
-      <a href="#welcome">Welcome</a>
-      <a href="#help">Help Center</a>
-      <a href="#support">Get in Touch</a>
-      <a href="#community">Community</a>
-    </nav>
-  </header>
-
-  <main>
-    <!-- HERO -->
-    <section id="welcome" class="hero">
-      <p class="hero__eyebrow">Headquarters</p>
+  <!-- HERO -->
+  <section id="welcome" class="hero">
+    <div>
+      <span class="sub-title">HEADQUARTERS</span>
       <h1>You can always come here.</h1>
-      <p class="hero__sub">
-        This is the heart of Cold Works Production. Got a question, something not
-        working right, or just curious what's going on — this is the place.
-      </p>
-      <div class="hero__actions">
-        <a href="#help" class="btn btn--primary">Go to Help Center</a>
-        <a href="#support" class="btn btn--ghost">Get in Touch</a>
+      <p>This is the heart of Cold Works Production. Got a question, something not working right, or just curious what's going on — this is the place.</p>
+      <div class="hero-buttons">
+        <a href="#help" class="btn">Go to Help Center</a>
+        <a href="#support" class="btn-secondary">Get in Touch</a>
       </div>
-    </section>
-
-    <!-- STATUS STRIP -->
-    <section class="status-strip">
-      <div class="status-item">
-        <span class="status-dot status-dot--live"></span>
-        <span>Team is currently active</span>
+      <div class="hq-status-row">
+        <span class="hq-status-pill"><span class="hq-status-dot hq-status-dot--live"></span> Team is currently active</span>
+        <span class="hq-status-pill"><i class="fa-regular fa-clock"></i> Average response ~1 day</span>
       </div>
-      <div class="status-item">
-        <span class="status-label">Average response time</span>
-        <span class="status-value">~1 day</span>
-      </div>
-      <div class="status-item">
-        <span class="status-label">Last updated</span>
-        <span class="status-value" id="last-update">—</span>
-      </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- HELP CENTER -->
-    <section id="help" class="help">
-      <div class="section-heading">
-        <h2>Help Center</h2>
-        <p>The most common questions live here. Can't find yours? Just reach out below.</p>
-      </div>
+  <!-- HELP CENTER -->
+  <section id="help" class="content-section">
+    <div class="center-text">
+      <span class="sub-title">HELP CENTER</span>
+      <h2>Got Questions?</h2>
+      <p style="color:var(--text-muted); max-width:520px; margin:0 auto 35px;">The most common questions live here. Can't find yours? Just reach out below.</p>
+    </div>
 
-      <div class="help__search">
-        <input type="text" id="faq-search" placeholder="Search for something… (e.g. 'publishing', 'submission', 'Discord')">
-      </div>
+    <div class="hq-search-wrap">
+      <input type="text" id="faq-search" placeholder="Search for something… (e.g. 'publishing', 'submission', 'Discord')">
+    </div>
 
-      <div class="accordion" id="accordion">
+    <div class="accordion-list" id="accordion">
 
-        <div class="accordion__item" data-cat="general">
-          <button class="accordion__trigger">
-            <span>What exactly does Cold Works Production do?</span>
-            <span class="accordion__icon">+</span>
-          </button>
-          <div class="accordion__panel">
-            <p>Music production is our main focus, and we also support publishing and
-            distribution. Alongside that, we run art, character (mascot), and community-driven
-            projects. In short, we don't fit in one box — we're a team that just loves creating.</p>
-          </div>
+      <div class="accordion-item">
+        <button class="accordion-trigger">
+          <span>What exactly does Cold Works Production do?</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-panel">
+          <p>Music production is our main focus, and we also support publishing and distribution. Alongside that, we run art, character (mascot), and community-driven projects. In short, we don't fit in one box — we're a team that just loves creating.</p>
         </div>
-
-        <div class="accordion__item" data-cat="publishing">
-          <button class="accordion__trigger">
-            <span>How can I apply to get my music published?</span>
-            <span class="accordion__icon">+</span>
-          </button>
-          <div class="accordion__panel">
-            <p>Our publishing/distribution side can help with that. The fastest way is to
-            select "Publishing" as the topic in the Get in Touch section below and briefly
-            tell us about yourself and your project. The team will get back to you.</p>
-          </div>
-        </div>
-
-        <div class="accordion__item" data-cat="art">
-          <button class="accordion__trigger">
-            <span>Can I submit my work to the art gallery?</span>
-            <span class="accordion__icon">+</span>
-          </button>
-          <div class="accordion__panel">
-            <p>Absolutely. You can share your work through the art submission section. After
-            review, we'll let you know whether it's been added to the gallery.</p>
-          </div>
-        </div>
-
-        <div class="accordion__item" data-cat="general">
-          <button class="accordion__trigger">
-            <span>Who are the mascots (Violet, Riley, Lucia) and what do they do?</span>
-            <span class="accordion__icon">+</span>
-          </button>
-          <div class="accordion__panel">
-            <p>Think of them as the faces of the brand — each one stands out in a different
-            area (for example, you might run into Violet on the voice/DM side). Over time,
-            each of them will get their own dedicated page.</p>
-          </div>
-        </div>
-
-        <div class="accordion__item" data-cat="general">
-          <button class="accordion__trigger">
-            <span>What is "The 7th Cycle of Death"?</span>
-            <span class="accordion__icon">+</span>
-          </button>
-          <div class="accordion__panel">
-            <p>It's a manga/story project we've been developing. You can follow the chapters
-            and updates through its page.</p>
-          </div>
-        </div>
-
-        <div class="accordion__item" data-cat="support">
-          <button class="accordion__trigger">
-            <span>I sent a message but haven't heard back — what should I do?</span>
-            <span class="accordion__icon">+</span>
-          </button>
-          <div class="accordion__panel">
-            <p>You might just be in the queue — we go through messages one by one, so it can
-            take a bit of time. Our average response time is listed above. If it's been a
-            while, we recommend using the Get in Touch form instead — we track those more closely.</p>
-          </div>
-        </div>
-
-        <div class="accordion__item" data-cat="support">
-          <button class="accordion__trigger">
-            <span>Should I message on Discord or use this site?</span>
-            <span class="accordion__icon">+</span>
-          </button>
-          <div class="accordion__panel">
-            <p>Either works. Messages on Discord go through our queue system, while the Get in
-            Touch form here comes to us directly. Unless it's urgent, both move at about the
-            same pace.</p>
-          </div>
-        </div>
-
       </div>
 
-      <p class="help__empty" id="faq-empty" hidden>We couldn't find a topic that matches — but feel free to reach out below, we're happy to help.</p>
-    </section>
-
-    <!-- SUPPORT FORM (Formspree — plain native submit, no JS/fetch involved) -->
-    <section id="support" class="support">
-      <div class="section-heading">
-        <h2>Get in Touch</h2>
-        <p>Whatever it is, just fill out the box below. We'll go through it and get back to you.</p>
+      <div class="accordion-item">
+        <button class="accordion-trigger">
+          <span>How can I apply to get my music published?</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-panel">
+          <p>Our publishing/distribution side can help with that. The fastest way is to select "Publishing" as the topic in the Get in Touch section below and briefly tell us about yourself and your project. The team will get back to you.</p>
+        </div>
       </div>
 
-      <form class="support__form" id="support-form" action="https://formspree.io/f/xzebbbvj" method="POST">
-        <div class="form-row">
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" placeholder="What should we call you?" required>
+      <div class="accordion-item">
+        <button class="accordion-trigger">
+          <span>Can I submit my work to the art gallery?</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-panel">
+          <p>Absolutely. You can share your work through the art submission section. After review, we'll let you know whether it's been added to the gallery.</p>
         </div>
-
-        <div class="form-row">
-          <label for="discord">Discord Username</label>
-          <input type="text" id="discord" name="discord" placeholder="e.g. abby" required>
-        </div>
-
-        <div class="form-row">
-          <label for="email">E-Mail</label>
-          <input type="email" id="email" name="_replyto" placeholder="you@example.com" required>
-        </div>
-
-        <div class="form-row">
-          <label for="topic">Topic</label>
-          <select id="topic" name="topic">
-            <option value="general">A general question</option>
-            <option value="publishing">Publishing / Distribution</option>
-            <option value="art">Art Submission</option>
-            <option value="technical">Something's broken on the site</option>
-            <option value="other">Something else</option>
-          </select>
-        </div>
-
-        <div class="form-row">
-          <label for="message">Description</label>
-          <textarea id="message" name="message" rows="5" placeholder="Give us a quick rundown of what's going on, we'll do our best." required></textarea>
-        </div>
-
-        <!-- Formspree: keeps the email subject clean -->
-        <input type="hidden" name="_subject" value="New message from Headquarters">
-
-        <button type="submit" class="btn btn--primary btn--wide" id="submit-btn">Send Message</button>
-        <p class="form-hint">You'll be taken to a confirmation page after sending.</p>
-      </form>
-    </section>
-
-    <!-- COMMUNITY -->
-    <section id="community" class="community">
-      <div class="section-heading">
-        <h2>Community</h2>
-        <p>Want to chat, follow along with projects, or just hang out? We're here.</p>
       </div>
-      <div class="community__cards">
-        <a class="community__card" href="https://discord.gg/coldworksproduction" target="_blank" rel="noopener">
-          <span class="community__icon">💬</span>
-          <span class="community__title">Discord</span>
-          <span class="community__desc">Live chat, announcements, DM queue</span>
-        </a>
-        <a class="community__card" href="https://coldworksproduction.com/" target="_blank" rel="noopener">
-          <span class="community__icon">🌐</span>
-          <span class="community__title">Main Site</span>
-          <span class="community__desc">coldworksproduction.com</span>
-        </a>
-        <a class="community__card" href="https://musicengine.coldworksproduction.com/" target="_blank" rel="noopener">
-          <span class="community__icon">🎧</span>
-          <span class="community__title">CW PLAY</span>
-          <span class="community__desc">Our music side</span>
-        </a>
-      </div>
-    </section>
-  </main>
 
-  <footer class="hq-footer">
+      <div class="accordion-item">
+        <button class="accordion-trigger">
+          <span>Who are the mascots (Violet, Riley, Lucia) and what do they do?</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-panel">
+          <p>Think of them as the faces of the brand — each one stands out in a different area (for example, you might run into Violet on the voice/DM side). Over time, each of them will get their own dedicated page.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger">
+          <span>What is "The 7th Cycle of Death"?</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-panel">
+          <p>It's a manga/story project we've been developing. You can follow the chapters and updates through its page.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger">
+          <span>I sent a message but haven't heard back — what should I do?</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-panel">
+          <p>You might just be in the queue — we go through messages one by one, so it can take a bit of time. If it's been a while, we recommend using the Get in Touch form below — we track those more closely.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger">
+          <span>Should I message on Discord or use this site?</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-panel">
+          <p>Either works. Messages on Discord go through our queue system, while the Get in Touch form here comes to us directly. Unless it's urgent, both move at about the same pace.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="hq-empty-note" id="faq-empty" hidden>We couldn't find a topic that matches — but feel free to reach out below, we're happy to help.</p>
+  </section>
+
+  <!-- SUPPORT FORM (Formspree) -->
+  <section id="support" class="content-section">
+    <div class="center-text">
+      <span class="sub-title">GET IN TOUCH</span>
+      <h2>Send Us a Message</h2>
+      <p style="color:var(--text-muted); max-width:520px; margin:0 auto;">Whatever it is, just fill out the box below. We'll go through it and get back to you.</p>
+    </div>
+
+    <form class="join-form" id="support-form" action="https://formspree.io/f/xzebbbvj" method="POST">
+      <input type="text" name="name" placeholder="Name" required>
+      <input type="text" name="discord" placeholder="Discord Username" required>
+      <input type="email" name="_replyto" placeholder="E-Mail" required>
+
+      <fieldset class="join-fields">
+        <legend>TOPIC</legend>
+        <label><input type="radio" name="topic" value="general" checked> General question</label>
+        <label><input type="radio" name="topic" value="publishing"> Publishing / Distribution</label>
+        <label><input type="radio" name="topic" value="art"> Art Submission</label>
+        <label><input type="radio" name="topic" value="technical"> Something's broken</label>
+        <label><input type="radio" name="topic" value="other"> Something else</label>
+      </fieldset>
+
+      <textarea name="message" rows="5" placeholder="Description — give us a quick rundown of what's going on" required></textarea>
+
+      <input type="hidden" name="_subject" value="New message from Headquarters">
+
+      <button type="submit" class="btn">Send Message</button>
+      <p class="hq-form-hint">You'll be taken to a confirmation page after sending.</p>
+    </form>
+  </section>
+
+  <!-- COMMUNITY -->
+  <section id="community" class="content-section">
+    <div class="center-text">
+      <span class="sub-title">COMMUNITY</span>
+      <h2>Stay Close</h2>
+      <p style="color:var(--text-muted); max-width:520px; margin:0 auto 35px;">Want to chat, follow along with projects, or just hang out? We're here.</p>
+    </div>
+    <div class="partner-card">
+      <div class="social-links">
+        <a class="social-link" style="background:#5865F2;" href="https://discord.gg/coldworksproduction" target="_blank" rel="noopener"><i class="fa-brands fa-discord"></i> Discord</a>
+        <a class="social-link" style="background:#8b5cf6;" href="https://coldworksproduction.com/" target="_blank" rel="noopener"><i class="fa-solid fa-globe"></i> Main Site</a>
+        <a class="social-link" style="background:#4a3e43;" href="https://musicengine.coldworksproduction.com/" target="_blank" rel="noopener"><i class="fa-solid fa-headphones-simple"></i> CW PLAY</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
     <p>Cold Works Production — a team that loves to create.</p>
   </footer>
 
   <script>
-document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
 
-  // --- Last updated date (automatic) ---
-  const lastUpdateEl = document.getElementById('last-update');
-  if (lastUpdateEl) {
-    const now = new Date();
-    lastUpdateEl.textContent = now.toLocaleDateString('en-US', {
-      day: 'numeric', month: 'long', year: 'numeric'
-    });
-  }
-
-  // --- Accordion (Help Center) ---
-  const items = document.querySelectorAll('.accordion__item');
-
-  items.forEach(item => {
-    const trigger = item.querySelector('.accordion__trigger');
-    const panel = item.querySelector('.accordion__panel');
-
-    trigger.addEventListener('click', () => {
-      const isOpen = item.classList.contains('open');
-
-      // Keep only one question open at a time
-      items.forEach(other => {
-        other.classList.remove('open');
-        other.querySelector('.accordion__panel').style.maxHeight = null;
-      });
-
-      if (!isOpen) {
-        item.classList.add('open');
-        panel.style.maxHeight = panel.scrollHeight + 'px';
+      // Mobile nav toggle
+      const navToggle = document.getElementById('navToggle');
+      const navLinks = document.querySelector('.nav-links');
+      if (navToggle && navLinks) {
+        navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
       }
-    });
-  });
 
-  // --- FAQ search ---
-  const searchInput = document.getElementById('faq-search');
-  const emptyState = document.getElementById('faq-empty');
-
-  if (searchInput) {
-    searchInput.addEventListener('input', () => {
-      const query = searchInput.value.trim().toLowerCase();
-      let visibleCount = 0;
-
+      // Accordion
+      const items = document.querySelectorAll('.accordion-item');
       items.forEach(item => {
-        const text = item.textContent.toLowerCase();
-        const matches = text.includes(query);
-        item.style.display = matches ? '' : 'none';
-        if (matches) visibleCount++;
+        const trigger = item.querySelector('.accordion-trigger');
+        const panel = item.querySelector('.accordion-panel');
 
-        // Close any open panel that no longer matches, to avoid confusion
-        if (!matches && item.classList.contains('open')) {
-          item.classList.remove('open');
-          item.querySelector('.accordion__panel').style.maxHeight = null;
-        }
+        trigger.addEventListener('click', () => {
+          const isOpen = item.classList.contains('open');
+
+          items.forEach(other => {
+            other.classList.remove('open');
+            other.querySelector('.accordion-panel').style.maxHeight = null;
+          });
+
+          if (!isOpen) {
+            item.classList.add('open');
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+          }
+        });
       });
 
-      emptyState.hidden = visibleCount !== 0;
+      // FAQ search
+      const searchInput = document.getElementById('faq-search');
+      const emptyState = document.getElementById('faq-empty');
+
+      if (searchInput) {
+        searchInput.addEventListener('input', () => {
+          const query = searchInput.value.trim().toLowerCase();
+          let visibleCount = 0;
+
+          items.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            const matches = text.includes(query);
+            item.style.display = matches ? '' : 'none';
+            if (matches) visibleCount++;
+
+            if (!matches && item.classList.contains('open')) {
+              item.classList.remove('open');
+              item.querySelector('.accordion-panel').style.maxHeight = null;
+            }
+          });
+
+          emptyState.hidden = visibleCount !== 0;
+        });
+      }
+
+      // Support form submits natively to Formspree — no fetch/AJAX involved.
+
     });
-  }
-
-  // Note: the support form below submits natively (plain POST) to Formspree —
-  // no fetch/AJAX involved, so there's nothing here that can fail due to
-  // CORS or sandboxed-preview restrictions. Formspree handles the redirect
-  // and confirmation screen on its own.
-
-});
   </script>
 </body>
 </html>
